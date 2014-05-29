@@ -16,3 +16,7 @@ console.log(results);
 text = 'Từ 08:30 - 17/05/2014 đến 16:30 - 25/05/2014';
 results = chrono.parse(text);
 console.log(results);
+
+text = 'Từ 17:30 đến 19:00 Ngày 24/04/2014';
+results = chrono.parse(text);
+console.log(results);

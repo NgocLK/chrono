@@ -1,13 +1,13 @@
 ﻿/*
 	A Vietnamese date parser for "from time - date to time - date" format.
-	Example: từ 08:30 - 17/05/2014 đến 16:30 - 25/05/2014
+	Example: từ 08:30 đến 17:00 Ngày 17/05/2014
 */
 (function () {
 
     if (typeof chrono == 'undefined')
         throw 'Cannot find the chrono main module';
 
-    var PATTERN = /(\W|^)(từ|tu)\s*([0-9]{1,2})(\.|\:|\：)([0-9]{1,2})\s*-\s*([0-9]{1,2})[\/\.-]([0-9]{1,2})[\/\.-]([0-9]{4}|[0-9]{2})\s*(đến|den)\s*([0-9]{1,2})(\.|\:|\：)([0-9]{1,2})\s*-\s*([0-9]{1,2})[\/\.-]([0-9]{1,2})[\/\.-]([0-9]{4}|[0-9]{2})(\W|$)/i;
+    var PATTERN = /(\W|^)(từ|tu)\s*([0-9]{1,2})(\.|\:|\：)([0-9]{1,2})\s*(đến|den)\s*([0-9]{1,2})(\.|\:|\：)([0-9]{1,2})\s*(ngày|ngay)\s*([0-9]{1,2})[\/\.-]([0-9]{1,2})[\/\.-]([0-9]{4}|[0-9]{2})(\W|$)/i;
 
     /**
      * DayOfWeekParser - Create a parser object
@@ -17,7 +17,7 @@
      * @param  { Object, Optional } opt  - Parsing option
      * @return { CNParser }
      */
-    function VNDateToDateParser(text, ref, opt) {
+    function VNTimeInDateParser(text, ref, opt) {
 
         opt = opt || {};
         ref = ref || new Date();
@@ -36,39 +36,30 @@
             }
 
             var text = matchedTokens[0];
-            text = matchedTokens[0].substr(0, matchedTokens[0].length - matchedTokens[12].length - matchedTokens[1].length);
+            text = matchedTokens[0].substr(0, matchedTokens[0].length - matchedTokens[14].length - matchedTokens[1].length);
 
 			var fromHours = parseInt(matchedTokens[3]);
 			var fromMinutes = parseInt(matchedTokens[5]);
-            var fromDays = parseInt(matchedTokens[6]);
-            var fromMonths = parseInt(matchedTokens[7]) - 1; //JS month
-            var fromYears = parseInt(matchedTokens[8]);
-			
-			var toHours = parseInt(matchedTokens[10]);
-			var toMinutes = parseInt(matchedTokens[12]);
-			var toDays = parseInt(matchedTokens[13]);
-			var toMonths = parseInt(matchedTokens[14]) - 1;
-			var toYears = parseInt(matchedTokens[15]);
+			var toHours = parseInt(matchedTokens[7]);
+			var toMinutes = parseInt(matchedTokens[9]);
+            var days = parseInt(matchedTokens[11]);
+            var months = parseInt(matchedTokens[12]) - 1; //JS month
+            var years = parseInt(matchedTokens[13]);
 
-            if (fromYears < 100) {
-                if (fromYears > 50) fromYears = fromYears + 1900; //01 - 20
-                else fromYears = fromYears + 2000;
+            if (years < 100) {
+                if (years > 50) years = years + 1900; //01 - 20
+                else years = years + 2000;
             }
 			
-			if (toYears < 100) {
-                if (toYears > 50) toYears = toYears + 1900; //01 - 20
-                else toYears = toYears + 2000;
-            }
-			
-            var fromDate = moment([fromYears, fromMonths, fromDays, fromHours, fromMinutes]);
-			var toDate = moment([toYears, toMonths, toDays, toHours, toMinutes]);
+            var fromDate = moment([years, months, days, fromHours, fromMinutes]);
+			var toDate = moment([years, months, days, toHours, toMinutes]);
 
             //Hit some impossible date or invalid date
-            if (fromDate.date() != fromDays || fromDate.month() != fromMonths || fromDate.year() != fromYears || fromDate.hour() != fromHours || fromDate.minute() != fromMinutes) {
+            if (fromDate.date() != days || fromDate.month() != months || fromDate.year() != years || fromDate.hour() != fromHours || fromDate.minute() != fromMinutes) {
                 return null;
             }
 			
-			if (toDate.date() != toDays || toDate.month() != toMonths || toDate.year() != toYears || toDate.hour() != toHours || toDate.minute() != toMinutes) {
+			if (toDate.date() != days || toDate.month() != months || toDate.year() != years || toDate.hour() != toHours || toDate.minute() != toMinutes) {
                 return null;
             }
 
@@ -100,5 +91,5 @@
         return parser;
     }
 
-    chrono.parsers.VNDateToDateParser = VNDateToDateParser;
+    chrono.parsers.VNTimeInDateParser = VNTimeInDateParser;
 })();
