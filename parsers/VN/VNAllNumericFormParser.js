@@ -38,9 +38,9 @@
             var text = matchedTokens[0];
             text = matchedTokens[0].substr(0, matchedTokens[0].length - matchedTokens[4].length);
 
-            var days = parseInt(matchedTokens[1]);
-            var months = parseInt(matchedTokens[2]) - 1; //JS month
-            var years = parseInt(matchedTokens[3]);
+            var days = parseInt(matchedTokens[1], 10);
+            var months = parseInt(matchedTokens[2], 10) - 1; //JS month
+            var years = parseInt(matchedTokens[3], 10);
 
             if (years < 100) {
                 if (years > 50) years = years + 1900; //01 - 20

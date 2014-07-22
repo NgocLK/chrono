@@ -38,17 +38,17 @@
             var text = matchedTokens[0];
             text = matchedTokens[0].substr(0, matchedTokens[0].length - matchedTokens[12].length - matchedTokens[1].length);
 
-			var fromHours = parseInt(matchedTokens[3]);
-			var fromMinutes = parseInt(matchedTokens[5]);
-            var fromDays = parseInt(matchedTokens[6]);
-            var fromMonths = parseInt(matchedTokens[7]) - 1; //JS month
-            var fromYears = parseInt(matchedTokens[8]);
+			var fromHours = parseInt(matchedTokens[3], 10);
+			var fromMinutes = parseInt(matchedTokens[5], 10);
+            var fromDays = parseInt(matchedTokens[6], 10);
+            var fromMonths = parseInt(matchedTokens[7], 10) - 1; //JS month
+            var fromYears = parseInt(matchedTokens[8], 10);
 			
-			var toHours = parseInt(matchedTokens[10]);
-			var toMinutes = parseInt(matchedTokens[12]);
-			var toDays = parseInt(matchedTokens[13]);
-			var toMonths = parseInt(matchedTokens[14]) - 1;
-			var toYears = parseInt(matchedTokens[15]);
+			var toHours = parseInt(matchedTokens[10], 10);
+			var toMinutes = parseInt(matchedTokens[12], 10);
+			var toDays = parseInt(matchedTokens[13], 10);
+			var toMonths = parseInt(matchedTokens[14], 10) - 1;
+			var toYears = parseInt(matchedTokens[15], 10);
 
             if (fromYears < 100) {
                 if (fromYears > 50) fromYears = fromYears + 1900; //01 - 20

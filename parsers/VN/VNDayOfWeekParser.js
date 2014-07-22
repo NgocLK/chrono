@@ -51,9 +51,9 @@
 
 			var dayOfWeek = matchedTokens[2];
 			var offset = DAYS_OFFSET[dayOfWeek.toLowerCase()];
-            var days = parseInt(matchedTokens[3]);
-            var months = parseInt(matchedTokens[4]) - 1; //JS month
-            var years = parseInt(matchedTokens[5]);
+            var days = parseInt(matchedTokens[3], 10);
+            var months = parseInt(matchedTokens[4], 10) - 1; //JS month
+            var years = parseInt(matchedTokens[5], 10);
 			if(offset === undefined)
 				return null;
 
